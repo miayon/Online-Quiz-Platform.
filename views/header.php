@@ -150,7 +150,9 @@ if ($_SESSION['role'] !== 'admin') {
     <a href="manage_courses.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'manage_courses.php' ? 'active' : ''; ?>">Courses</a>
     <a href="manage_quizzes.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'manage_quizzes.php' ? 'active' : ''; ?>">Quizzes</a>
     <a href="manage_announcements.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'manage_announcements.php' ? 'active' : ''; ?>">Platform Announcements</a>
+    <a href="manage_integrity_flags.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'manage_integrity_flags.php' ? 'active' : ''; ?>">Integrity Flags</a>
     <a href="reports.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'reports.php' ? 'active' : ''; ?>">Institutional Reports</a>
+    <a href="platform_settings.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'platform_settings.php' ? 'active' : ''; ?>">Platform Policies</a>
     <a href="audit_logs.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'audit_logs.php' ? 'active' : ''; ?>">Audit Logs</a>
     <a href="../controllers/auth_controller.php?action=logout" style="margin-top: 50px; color: #ff7675;">Logout</a>
 </div>
