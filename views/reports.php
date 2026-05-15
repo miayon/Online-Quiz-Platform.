@@ -3,10 +3,29 @@
 require_once __DIR__ . '/header.php';
 require_once __DIR__ . '/../models/ReportModel.php';
 
-$subjectEnrollments = ReportModel::getEnrollmentPerSubject();
-$passRates = ReportModel::getQuizPassRates();
+$startDate = isset($_GET['start_date']) ? $_GET['start_date'] : null;
+$endDate = isset($_GET['end_date']) ? $_GET['end_date'] : null;
+
+$subjectEnrollments = ReportModel::getEnrollmentPerSubject($startDate, $endDate);
+$passRates = ReportModel::getQuizPassRates($startDate, $endDate);
 $topInstructors = ReportModel::getMostActiveInstructors();
 ?>
+
+<div class="table-container" style="margin-bottom: 20px;">
+    <h3>Institutional Report Filter (Semester Range)</h3>
+    <form action="reports.php" method="GET" style="display: flex; gap: 15px; align-items: flex-end;">
+        <div>
+            <label style="font-size: 12px; color: #666;">Start Date</label><br>
+            <input type="date" name="start_date" value="<?php echo htmlspecialchars($startDate); ?>" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+        </div>
+        <div>
+            <label style="font-size: 12px; color: #666;">End Date</label><br>
+            <input type="date" name="end_date" value="<?php echo htmlspecialchars($endDate); ?>" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+        </div>
+        <button type="submit" class="btn btn-edit">Filter Results</button>
+        <a href="reports.php" class="btn" style="background: #eee; color: #333;">Clear Filter</a>
+    </form>
+</div>
 
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
     <div class="table-container">

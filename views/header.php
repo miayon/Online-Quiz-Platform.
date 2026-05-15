@@ -145,6 +145,7 @@ if ($_SESSION['role'] !== 'admin') {
 <div class="sidebar">
     <h2>Admin Panel</h2>
     <a href="dashboard.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'active' : ''; ?>">Dashboard</a>
+    <a href="profile.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'profile.php' ? 'active' : ''; ?>">My Profile</a>
     <a href="manage_users.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'manage_users.php' ? 'active' : ''; ?>">Manage Users</a>
     <a href="manage_subjects.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'manage_subjects.php' ? 'active' : ''; ?>">Subjects</a>
     <a href="manage_courses.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'manage_courses.php' ? 'active' : ''; ?>">Courses</a>
@@ -152,6 +153,7 @@ if ($_SESSION['role'] !== 'admin') {
     <a href="manage_announcements.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'manage_announcements.php' ? 'active' : ''; ?>">Platform Announcements</a>
     <a href="manage_integrity_flags.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'manage_integrity_flags.php' ? 'active' : ''; ?>">Integrity Flags</a>
     <a href="reports.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'reports.php' ? 'active' : ''; ?>">Institutional Reports</a>
+    <a href="student_report.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'student_report.php' ? 'active' : ''; ?>">Student Academic Report</a>
     <a href="platform_settings.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'platform_settings.php' ? 'active' : ''; ?>">Platform Policies</a>
     <a href="audit_logs.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'audit_logs.php' ? 'active' : ''; ?>">Audit Logs</a>
     <a href="../controllers/auth_controller.php?action=logout" style="margin-top: 50px; color: #ff7675;">Logout</a>

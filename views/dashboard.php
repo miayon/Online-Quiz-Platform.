@@ -22,6 +22,11 @@ $quiz_attempts_today = db_fetch_one("SELECT COUNT(*) as count FROM attempts WHER
         <p>Currently running</p>
     </div>
     <div class="stat-card">
+        <h3>Attempts Today</h3>
+        <div class="value" style="color: var(--accent);"><?php echo $quiz_attempts_today; ?></div>
+        <p>Quiz completions</p>
+    </div>
+    <div class="stat-card">
         <h3>Integrity Flags</h3>
         <div class="value" style="color: var(--danger);"><?php echo $stats['pending_integrity_flags']; ?></div>
         <p>Pending review</p>
