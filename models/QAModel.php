@@ -1,6 +1,6 @@
 <?php
 
-class QA {
+class QAModel {
 
     private $conn;
 

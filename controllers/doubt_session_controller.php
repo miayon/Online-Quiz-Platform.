@@ -1,14 +1,14 @@
 <?php
 
-require_once __DIR__ . "/../../config/db.php";
-require_once __DIR__ . "/../models/DoubtSession.php";
+require_once __DIR__ . "/../config/db.php";
+require_once __DIR__ . "/../models/DoubtSessionModel.php";
 
 class DoubtSessionController {
 
     private $sessionModel;
 
     public function __construct($db) {
-        $this->sessionModel = new DoubtSession($db);
+        $this->sessionModel = new DoubtSessionModel($db);
     }
 
     public function index($student_id) {

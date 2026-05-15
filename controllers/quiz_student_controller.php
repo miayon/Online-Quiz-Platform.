@@ -1,10 +1,10 @@
 <?php
 
 require_once __DIR__ .
-"/../../config/db.php";
+"/../config/db.php";
 
 require_once __DIR__ .
-"/../models/Quiz.php";
+"/../models/QuizStudentModel.php";
 
 class QuizController {
 
@@ -13,7 +13,7 @@ class QuizController {
     public function __construct($db) {
 
         $this->quizModel =
-            new Quiz($db);
+            new QuizStudentModel($db);
     }
 
     public function quizzes(

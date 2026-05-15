@@ -1,14 +1,14 @@
 <?php
 
-require_once __DIR__ . "/../../config/db.php";
-require_once __DIR__ . "/../models/Register.php";
+require_once __DIR__ . "/../config/db.php";
+require_once __DIR__ . "/../models/RegisterModel.php";
 
 class RegisterController {
 
     private $registerModel;
 
     public function __construct($db) {
-        $this->registerModel = new Register($db);
+        $this->registerModel = new RegisterModel($db);
     }
 
     public function register() {

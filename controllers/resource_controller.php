@@ -1,14 +1,14 @@
 <?php
 
-require_once __DIR__ . "/../../config/db.php";
-require_once __DIR__ . "/../models/Resource.php";
+require_once __DIR__ . "/../config/db.php";
+require_once __DIR__ . "/../models/ResourceModel.php";
 
 class ResourceController {
 
     private $resourceModel;
 
     public function __construct($db) {
-        $this->resourceModel = new Resource($db);
+        $this->resourceModel = new ResourceModel($db);
     }
 
     public function materials($student_id) {

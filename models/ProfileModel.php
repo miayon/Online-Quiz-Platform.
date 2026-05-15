@@ -1,6 +1,6 @@
 <?php
 
-class Profile {
+class ProfileModel {
 
     private $conn;
 

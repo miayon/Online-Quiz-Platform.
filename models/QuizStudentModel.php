@@ -1,6 +1,6 @@
 <?php
 
-class Quiz {
+class QuizStudentModel {
 
     private $conn;
 

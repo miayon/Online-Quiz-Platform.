@@ -1,6 +1,6 @@
 <?php
 
-class Performance {
+class PerformanceModel {
 
     private $conn;
 

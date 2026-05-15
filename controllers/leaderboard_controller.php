@@ -1,14 +1,14 @@
 <?php
 
-require_once __DIR__ . "/../../config/db.php";
-require_once __DIR__ . "/../models/Leaderboard.php";
+require_once __DIR__ . "/../config/db.php";
+require_once __DIR__ . "/../models/LeaderboardModel.php";
 
 class LeaderboardController {
 
     private $leaderboardModel;
 
     public function __construct($db) {
-        $this->leaderboardModel = new Leaderboard($db);
+        $this->leaderboardModel = new LeaderboardModel($db);
     }
 
     public function index($student_id) {
