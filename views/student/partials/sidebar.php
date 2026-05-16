@@ -1,7 +1,7 @@
 <aside class="sidebar">
     <div class="brand">
-        <h2>QuizlyX</h2>
-        <p>Student Portal</p>
+        <h2 style="margin: 0; color: #fff; font-size: 24px; letter-spacing: 1px;">QuizlyX</h2>
+        <small style="color: #fff; opacity: 0.6; text-transform: uppercase; font-size: 10px; letter-spacing: 2px;">Student Portal</small>
     </div>
 
     <nav class="menu">

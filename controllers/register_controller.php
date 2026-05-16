@@ -118,4 +118,9 @@ class RegisterController {
         include __DIR__ . "/../views/auth/register.php";
     }
 }
+// Auto-execute if this file is accessed directly
+if (basename($_SERVER['PHP_SELF']) == 'register_controller.php') {
+    $controller = new RegisterController($conn);
+    $controller->register();
+}
 ?>

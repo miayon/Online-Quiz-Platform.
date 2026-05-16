@@ -31,7 +31,6 @@ $settings = SettingsModel::getAll();
                 <tr>
                     <td>
                         <strong><?php echo ucwords(str_replace('_', ' ', $s['setting_key'])); ?></strong>
-                        <br><small style="color: #888;">Global policy key: <?php echo $s['setting_key']; ?></small>
                     </td>
                     <td>
                         <input type="text" name="settings[<?php echo $s['setting_key']; ?>]" value="<?php echo htmlspecialchars($s['setting_value']); ?>" class="form-control">

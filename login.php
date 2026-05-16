@@ -79,7 +79,8 @@
 <body>
 
 <div class="login-container">
-    <h2>QuizlyX Login</h2>
+    <h1 style="text-align: center; color: #2c3e50; margin-bottom: 5px; font-size: 32px;">QuizlyX</h1>
+    <p style="text-align: center; color: #7f8c8d; margin-bottom: 30px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Sign in to your account</p>
 
     <?php if (isset($_GET['error'])): ?>
         <div class="error-msg">
@@ -107,6 +108,10 @@
 
         <button type="submit" class="btn-login">Login</button>
     </form>
+    
+    <div style="text-align: center; margin-top: 25px; font-size: 14px; color: #666;">
+        Don't have an account? <a href="register.php" style="color: #2563eb; text-decoration: none; font-weight: 600;">Register as Student</a>
+    </div>
 
 </div>
 

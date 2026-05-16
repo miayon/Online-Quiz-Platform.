@@ -178,7 +178,10 @@ if ($_SESSION['role'] !== 'admin') {
 <body>
 
 <div class="sidebar">
-    <h2>QuizlyX Admin</h2>
+    <div style="text-align: center; padding: 10px 0 30px 0;">
+        <h2 style="margin: 0; color: var(--accent); font-size: 28px; letter-spacing: 1px;">QuizlyX</h2>
+        <small style="color: var(--text); opacity: 0.6; text-transform: uppercase; font-size: 10px; letter-spacing: 2px;">Admin Portal</small>
+    </div>
     <a href="dashboard.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'active' : ''; ?>">Dashboard</a>
     <a href="profile.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'profile.php' ? 'active' : ''; ?>">My Profile</a>
     <a href="manage_users.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'manage_users.php' ? 'active' : ''; ?>">Manage Users</a>
