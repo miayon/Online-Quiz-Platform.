@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Online Quiz Platform</title>
+    <title>Login - QuizlyX</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
         body {
@@ -79,7 +79,7 @@
 <body>
 
 <div class="login-container">
-    <h2>Login</h2>
+    <h2>QuizlyX Login</h2>
 
     <?php if (isset($_GET['error'])): ?>
         <div class="error-msg">

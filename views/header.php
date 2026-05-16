@@ -20,7 +20,7 @@ if ($_SESSION['role'] !== 'admin') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Quiz Platform</title>
+    <title>Admin Dashboard - QuizlyX</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         :root {
@@ -178,7 +178,7 @@ if ($_SESSION['role'] !== 'admin') {
 <body>
 
 <div class="sidebar">
-    <h2>Admin Panel</h2>
+    <h2>QuizlyX Admin</h2>
     <a href="dashboard.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'active' : ''; ?>">Dashboard</a>
     <a href="profile.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'profile.php' ? 'active' : ''; ?>">My Profile</a>
     <a href="manage_users.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'manage_users.php' ? 'active' : ''; ?>">Manage Users</a>

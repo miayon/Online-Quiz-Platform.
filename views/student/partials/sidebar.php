@@ -1,6 +1,6 @@
 <aside class="sidebar">
     <div class="brand">
-        <h2>QuizPro</h2>
+        <h2>QuizlyX</h2>
         <p>Student Portal</p>
     </div>
 
