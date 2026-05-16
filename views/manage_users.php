@@ -8,28 +8,30 @@ $users = UserModel::getAll();
 
 <div class="table-container" style="margin-bottom: 30px;">
     <h2>Register New Teaching Assistant (TA)</h2>
-    <form action="../controllers/user_controller.php" method="POST" style="display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 10px; align-items: end;">
+    <form action="../controllers/user_controller.php" method="POST" class="flex-form">
         <input type="hidden" name="action" value="create_ta">
         <div>
-            <label>Name</label><br>
-            <input type="text" name="name" required style="width: 100%; padding: 8px;">
+            <label style="font-weight: 500; margin-bottom: 5px; display: block;">Name</label>
+            <input type="text" name="name" class="form-control" required placeholder="Full Name">
         </div>
         <div>
-            <label>Email</label><br>
-            <input type="email" name="email" required style="width: 100%; padding: 8px;">
+            <label style="font-weight: 500; margin-bottom: 5px; display: block;">Email</label>
+            <input type="email" name="email" class="form-control" required placeholder="Email Address">
         </div>
         <div>
-            <label>Password</label><br>
-            <input type="password" name="password" required style="width: 100%; padding: 8px;">
+            <label style="font-weight: 500; margin-bottom: 5px; display: block;">Password</label>
+            <input type="password" name="password" class="form-control" required placeholder="Initial Password">
         </div>
-        <button type="submit" class="btn btn-approve">Create TA</button>
+        <div style="flex: 0 0 auto;">
+            <button type="submit" class="btn btn-approve" style="width: 150px; padding: 10px;">Create TA</button>
+        </div>
     </form>
 </div>
 
 <div class="table-container">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <h2>All Users</h2>
-        <input type="text" id="userSearchInput" placeholder="Search by name, email or ID..." onkeyup="searchUsers()" style="padding: 10px; width: 300px; border: 1px solid #ddd; border-radius: 4px;">
+        <input type="text" id="userSearchInput" class="form-control" placeholder="Search by name, email or ID..." onkeyup="searchUsers()" style="max-width: 350px;">
     </div>
 
     <table>
@@ -55,7 +57,7 @@ $users = UserModel::getAll();
                         <span style="color: var(--danger);">Inactive</span>
                     <?php endif; ?>
                 </td>
-                <td>
+                <td class="actions-cell">
                     <a href="../controllers/user_controller.php?action=toggle_status&id=<?php echo $user['id']; ?>" class="btn <?php echo $user['is_active'] ? 'btn-delete' : 'btn-approve'; ?>">
                         <?php echo $user['is_active'] ? 'Deactivate' : 'Activate'; ?>
                     </a>

@@ -1,4 +1,14 @@
 <?php
+require_once __DIR__ . "/init.php";
+
+$course_id = $_GET["id"] ?? 0;
+$course = $courseModel->courseDetails($student_id, $course_id);
+
+if (!$course) {
+    echo "Course not found or not enrolled.";
+    exit();
+}
+
 include __DIR__ . "/partials/header.php";
 include __DIR__ . "/partials/sidebar.php";
 ?>

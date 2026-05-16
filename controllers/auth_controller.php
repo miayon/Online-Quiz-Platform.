@@ -30,8 +30,9 @@ if (isset($_POST['action'])) {
             // Redirect based on role
             if ($user['role'] === 'admin') {
                 header("Location: ../views/dashboard.php");
+            } elseif ($user['role'] === 'student') {
+                header("Location: ../views/student/dashboard.php");
             } else {
-                // For other roles, just redirect to a placeholder or their dashboard if it existed
                 header("Location: ../index.php");
             }
             exit();

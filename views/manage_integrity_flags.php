@@ -39,7 +39,7 @@ $reports = IntegrityModel::getAllReports();
                         <?php echo strtoupper($report['status']); ?>
                     </span>
                 </td>
-                <td>
+                <td class="actions-cell">
                     <?php if ($report['status'] == 'pending'): ?>
                         <a href="../controllers/integrity_controller.php?action=resolve&id=<?php echo $report['id']; ?>" class="btn btn-approve">Resolve</a>
                         <a href="../controllers/integrity_controller.php?action=escalate&id=<?php echo $report['id']; ?>" class="btn btn-edit" style="background: #607d8b;">Escalate</a>

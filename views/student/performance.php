@@ -1,29 +1,24 @@
 <?php
+require_once __DIR__ . "/init.php";
+
+$overall = $performanceModel->overallStats($student_id);
+$classAverage = $performanceModel->classAverage();
+$subjects = $performanceModel->subjectPerformance($student_id);
+$recent = $performanceModel->recentResults($student_id);
+
 include __DIR__ . "/partials/header.php";
 include __DIR__ . "/partials/sidebar.php";
 
-$total_attempts =
-$overall["total_attempts"] ?? 0;
-
-$average_score =
-$overall["average_score"] ?? 0;
-
-$total_pass =
-$overall["total_pass"] ?? 0;
-
+$total_attempts = $overall["total_attempts"] ?? 0;
+$average_score = $overall["average_score"] ?? 0;
+$total_pass = $overall["total_pass"] ?? 0;
 $pass_rate = 0;
 
 if ($total_attempts > 0) {
-
-    $pass_rate = round(
-        ($total_pass / $total_attempts)
-        * 100,
-        2
-    );
+    $pass_rate = round(($total_pass / $total_attempts) * 100, 2);
 }
 
-$class_avg =
-$classAverage["class_avg"] ?? 0;
+$class_avg = $classAverage["class_avg"] ?? 0;
 ?>
 
 <div class="card">

@@ -34,7 +34,7 @@ $settings = SettingsModel::getAll();
                         <br><small style="color: #888;">Global policy key: <?php echo $s['setting_key']; ?></small>
                     </td>
                     <td>
-                        <input type="text" name="settings[<?php echo $s['setting_key']; ?>]" value="<?php echo htmlspecialchars($s['setting_value']); ?>" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                        <input type="text" name="settings[<?php echo $s['setting_key']; ?>]" value="<?php echo htmlspecialchars($s['setting_value']); ?>" class="form-control">
                     </td>
                 </tr>
                 <?php endforeach; ?>

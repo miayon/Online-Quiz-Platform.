@@ -16,7 +16,7 @@
         <a href="materials.php">Materials</a>
         <a href="announcements.php">Announcements</a>
         <a href="doubt_sessions.php">Doubt Sessions</a>
-        <a href="../logout.php" class="logout">Logout</a>
+        <a href="../../controllers/auth_controller.php?action=logout" class="logout">Logout</a>
     </nav>
 </aside>
 

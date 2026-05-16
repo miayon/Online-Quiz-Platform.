@@ -1,4 +1,9 @@
 <?php
+require_once __DIR__ . "/init.php";
+
+$stats = $studentModel->getDashboardStats($student_id);
+$courses = $studentModel->getDashboardCourses($student_id);
+
 include __DIR__ . "/partials/header.php";
 include __DIR__ . "/partials/sidebar.php";
 ?>

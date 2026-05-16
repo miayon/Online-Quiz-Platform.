@@ -1,4 +1,12 @@
 <?php
+require_once __DIR__ . "/init.php";
+
+$search = $_GET["search"] ?? "";
+$subject_id = $_GET["subject_id"] ?? "";
+
+$subjects = $courseModel->getSubjects();
+$courses = $courseModel->getCourses($student_id, $search, $subject_id);
+
 include __DIR__ . "/partials/header.php";
 include __DIR__ . "/partials/sidebar.php";
 ?>

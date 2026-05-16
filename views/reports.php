@@ -13,17 +13,19 @@ $topInstructors = ReportModel::getMostActiveInstructors();
 
 <div class="table-container" style="margin-bottom: 20px;">
     <h3>Institutional Report Filter (Semester Range)</h3>
-    <form action="reports.php" method="GET" style="display: flex; gap: 15px; align-items: flex-end;">
+    <form action="reports.php" method="GET" class="flex-form">
         <div>
-            <label style="font-size: 12px; color: #666;">Start Date</label><br>
-            <input type="date" name="start_date" value="<?php echo htmlspecialchars($startDate); ?>" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+            <label style="font-weight: 500; margin-bottom: 5px; display: block;">Start Date</label>
+            <input type="date" name="start_date" value="<?php echo htmlspecialchars($startDate); ?>" class="form-control">
         </div>
         <div>
-            <label style="font-size: 12px; color: #666;">End Date</label><br>
-            <input type="date" name="end_date" value="<?php echo htmlspecialchars($endDate); ?>" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+            <label style="font-weight: 500; margin-bottom: 5px; display: block;">End Date</label>
+            <input type="date" name="end_date" value="<?php echo htmlspecialchars($endDate); ?>" class="form-control">
         </div>
-        <button type="submit" class="btn btn-edit">Filter Results</button>
-        <a href="reports.php" class="btn" style="background: #eee; color: #333;">Clear Filter</a>
+        <div style="flex: 0 0 auto;">
+            <button type="submit" class="btn btn-edit" style="width: 150px; padding: 10px;">Filter Results</button>
+            <a href="reports.php" class="btn btn-reject" style="width: 150px; padding: 10px;">Clear Filter</a>
+        </div>
     </form>
 </div>
 

@@ -1,4 +1,11 @@
 <?php
+require_once __DIR__ . "/init.php";
+
+$course_id = $_GET["course_id"] ?? "";
+
+$courses = $resourceModel->enrolledCourses($student_id);
+$materials = $resourceModel->getMaterials($student_id, $course_id);
+
 include __DIR__ . "/partials/header.php";
 include __DIR__ . "/partials/sidebar.php";
 ?>

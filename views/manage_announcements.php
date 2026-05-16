@@ -10,15 +10,15 @@ $announcements = db_fetch_all("SELECT * FROM announcements WHERE course_id IS NU
     <h2>Create Platform-wide Announcement</h2>
     <form action="../controllers/announcement_controller.php" method="POST">
         <input type="hidden" name="action" value="create">
-        <div style="margin-bottom: 10px;">
-            <label>Title</label><br>
-            <input type="text" name="title" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+        <div class="form-group">
+            <label style="font-weight: 500; margin-bottom: 5px; display: block;">Title</label>
+            <input type="text" name="title" class="form-control" required placeholder="Announcement Title">
         </div>
-        <div style="margin-bottom: 10px;">
-            <label>Message Content</label><br>
-            <textarea name="body" required style="width: 100%; padding: 10px; height: 100px; border: 1px solid #ddd; border-radius: 4px;"></textarea>
+        <div class="form-group">
+            <label style="font-weight: 500; margin-bottom: 5px; display: block;">Message Content</label>
+            <textarea name="body" class="form-control" required style="height: 120px;" placeholder="Write your announcement message here..."></textarea>
         </div>
-        <button type="submit" class="btn btn-approve">Post Announcement</button>
+        <button type="submit" class="btn btn-approve" style="width: 200px; padding: 12px;">Post Announcement</button>
     </form>
 </div>
 
@@ -39,7 +39,7 @@ $announcements = db_fetch_all("SELECT * FROM announcements WHERE course_id IS NU
                 <td><strong><?php echo htmlspecialchars($ann['title']); ?></strong></td>
                 <td><?php echo nl2br(htmlspecialchars($ann['body'])); ?></td>
                 <td><?php echo date('M d, Y H:i', strtotime($ann['created_at'])); ?></td>
-                <td>
+                <td class="actions-cell">
                     <a href="../controllers/announcement_controller.php?action=delete&id=<?php echo $ann['id']; ?>" class="btn btn-delete" onclick="return confirm('Are you sure?')">Delete</a>
                 </td>
             </tr>

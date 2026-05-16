@@ -1,10 +1,18 @@
 <?php
+require_once __DIR__ . "/init.php";
+
+$attempt_id = $_GET["attempt_id"] ?? 0;
+$result = $quizModel->getResult($attempt_id, $student_id);
+
+if (!$result) {
+    echo "Result not found.";
+    exit();
+}
+
 include __DIR__ . "/partials/header.php";
 include __DIR__ . "/partials/sidebar.php";
 
-$passed =
-$result["score"] >=
-$result["pass_mark"];
+$passed = $result["score"] >= $result["pass_mark"];
 ?>
 
 <div class="card">

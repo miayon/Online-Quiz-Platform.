@@ -113,6 +113,10 @@ if ($_SESSION['role'] !== 'admin') {
             text-align: left;
             border-bottom: 1px solid #eee;
         }
+        .actions-cell {
+            white-space: nowrap;
+            width: 1%;
+        }
         th {
             background-color: #fcfcfc;
             color: #333;
@@ -128,16 +132,47 @@ if ($_SESSION['role'] !== 'admin') {
         .badge-admin { background: #fff3e0; color: #f57c00; }
         
         .btn {
-            padding: 8px 15px;
-            border-radius: 4px;
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 6px;
             text-decoration: none;
             font-size: 14px;
             cursor: pointer;
             border: none;
+            transition: opacity 0.2s, transform 0.1s;
+            text-align: center;
+            vertical-align: middle;
+            margin: 2px;
         }
+        .btn:hover { opacity: 0.9; }
+        .btn:active { transform: translateY(1px); }
+        
         .btn-edit { background: var(--accent); color: white; }
         .btn-delete { background: var(--danger); color: white; }
         .btn-approve { background: var(--success); color: white; }
+        .btn-reject { background: #636e72; color: white; }
+
+        /* Form improvements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .flex-form {
+            display: flex;
+            gap: 15px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+        .flex-form > div {
+            flex: 1;
+            min-width: 200px;
+        }
     </style>
 </head>
 <body>

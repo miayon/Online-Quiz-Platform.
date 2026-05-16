@@ -8,17 +8,19 @@ $subjects = SubjectModel::getAll();
 
 <div class="table-container" style="margin-bottom: 30px;">
     <h2>Add New Subject</h2>
-    <form action="../controllers/subject_controller.php" method="POST" style="display: flex; gap: 10px; align-items: end;">
+    <form action="../controllers/subject_controller.php" method="POST" class="flex-form">
         <input type="hidden" name="action" value="create">
         <div style="flex: 1;">
-            <label>Subject Name</label><br>
-            <input type="text" name="name" required style="width: 100%; padding: 8px;">
+            <label style="font-weight: 500; margin-bottom: 5px; display: block;">Subject Name</label>
+            <input type="text" name="name" class="form-control" required placeholder="e.g. Computer Science">
         </div>
         <div style="flex: 2;">
-            <label>Description</label><br>
-            <input type="text" name="description" style="width: 100%; padding: 8px;">
+            <label style="font-weight: 500; margin-bottom: 5px; display: block;">Description</label>
+            <input type="text" name="description" class="form-control" placeholder="Brief overview of the subject">
         </div>
-        <button type="submit" class="btn btn-approve">Add Subject</button>
+        <div style="flex: 0 0 auto;">
+            <button type="submit" class="btn btn-approve" style="width: 150px; padding: 10px;">Add Subject</button>
+        </div>
     </form>
 </div>
 
@@ -39,7 +41,7 @@ $subjects = SubjectModel::getAll();
                 <td><?php echo $subject['id']; ?></td>
                 <td><?php echo htmlspecialchars($subject['name']); ?></td>
                 <td><?php echo htmlspecialchars($subject['description']); ?></td>
-                <td>
+                <td class="actions-cell">
                     <a href="../controllers/subject_controller.php?action=delete&id=<?php echo $subject['id']; ?>" class="btn btn-delete" onclick="return confirm('Are you sure?')">Delete</a>
                 </td>
             </tr>

@@ -57,5 +57,9 @@ class UserModel {
             return db_query($sql, [$name, $phone, $department, $bio, $id], "ssssi");
         }
     }
+
+    public static function updatePassword($id, $hash) {
+        return db_query("UPDATE users SET password_hash = ? WHERE id = ?", [$hash, $id], "si");
+    }
 }
 ?>

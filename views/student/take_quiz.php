@@ -1,4 +1,15 @@
 <?php
+require_once __DIR__ . "/init.php";
+
+$quiz_id = $_GET["quiz_id"] ?? 0;
+$quiz = $quizModel->getQuiz($quiz_id);
+$questions = $quizModel->getQuestions($quiz_id);
+
+if (!$quiz) {
+    echo "Quiz not found.";
+    exit();
+}
+
 include __DIR__ . "/partials/header.php";
 include __DIR__ . "/partials/sidebar.php";
 ?>
@@ -67,7 +78,7 @@ include __DIR__ . "/partials/sidebar.php";
 
                 <?php
                 $options =
-                    $this->quizModel
+                    $quizModel
                         ->getOptions(
                             $question["id"]
                         );

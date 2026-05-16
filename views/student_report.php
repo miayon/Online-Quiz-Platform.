@@ -19,10 +19,13 @@ if ($student_id) {
     <h2>Student Academic Performance Report</h2>
     <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Search for a student by their Name or Student ID to view their full academic summary.</p>
 
-    <form action="student_report.php" method="GET" style="margin-bottom: 30px; display: flex; gap: 10px;">
-        <input type="text" name="search" placeholder="Enter Student ID or Name..." value="<?php echo htmlspecialchars($student_id); ?>" 
-               style="flex-grow: 1; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
-        <button type="submit" class="btn btn-edit">Search Report</button>
+    <form action="student_report.php" method="GET" class="flex-form" style="margin-bottom: 30px;">
+        <div style="flex: 1;">
+            <input type="text" name="search" class="form-control" placeholder="Enter Student ID or Name..." value="<?php echo htmlspecialchars($student_id); ?>">
+        </div>
+        <div style="flex: 0 0 auto;">
+            <button type="submit" class="btn btn-edit" style="width: 150px; padding: 10px;">Search Report</button>
+        </div>
     </form>
 
     <?php if ($student): ?>

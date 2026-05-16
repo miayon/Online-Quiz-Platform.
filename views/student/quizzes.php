@@ -1,4 +1,8 @@
 <?php
+require_once __DIR__ . "/init.php";
+
+$quizzes = $quizModel->getQuizzes($student_id);
+
 include __DIR__ . "/partials/header.php";
 include __DIR__ . "/partials/sidebar.php";
 ?>
