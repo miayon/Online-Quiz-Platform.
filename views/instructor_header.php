@@ -61,7 +61,7 @@ $pageTitle = $pageTitle ?? "Instructor Panel";
 <head>
     <meta charset="UTF-8">
     <title><?= h($pageTitle) ?></title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/instructor.css">
 </head>
 <body>
 <div class="layout">
