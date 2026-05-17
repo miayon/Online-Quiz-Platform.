@@ -14,8 +14,10 @@ if ($_SESSION['role'] !== 'ta') {
     exit();
 }
 
-function h($value) {
-    return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');
+if (!function_exists('h')) {
+    function h($value) {
+        return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');
+    }
 }
 
 function ta_course_tabs($courseId) {
