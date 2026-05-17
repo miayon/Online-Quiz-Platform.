@@ -132,10 +132,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <button type="submit" class="btn-login">Login</button>
     </form>
-    
-    <div style="text-align: center; margin-top: 25px; font-size: 14px; color: #666;">
-        Don't have an account? <a href="../../register.php" style="color: #2563eb; text-decoration: none; font-weight: 600;">Register here</a>
-    </div>
 
 </div>
 
