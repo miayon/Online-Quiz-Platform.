@@ -190,6 +190,13 @@
 
         <form action="register.php" method="POST" enctype="multipart/form-data">
             <div class="grid-2">
+                <div class="form-group" style="grid-column: span 2;">
+                    <label for="role">Register As</label>
+                    <select name="role" id="role" style="width: 100%; padding: 12px 16px; background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: white; font-size: 15px;" onchange="toggleRoleFields()">
+                        <option value="student">Student</option>
+                        <option value="instructor">Instructor</option>
+                    </select>
+                </div>
                 <div class="form-group">
                     <label for="name">Full Name</label>
                     <input type="text" name="name" id="name" required placeholder="John Doe">
@@ -197,30 +204,41 @@
                 <div class="form-group">
                     <label for="email">Email Address</label>
                     <input type="email" name="email" id="email" required placeholder="john@example.com">
+                    <div id="email-feedback" style="font-size: 13px; margin-top: 5px; font-weight: 500; display: none;"></div>
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
                     <input type="text" name="phone" id="phone" placeholder="+880 1xxx xxxxxx">
                 </div>
-                <div class="form-group">
+                <div class="form-group student-only">
                     <label for="student_id">Student ID</label>
                     <input type="text" name="student_id" id="student_id" required placeholder="CSE-2024-001">
                 </div>
-                <div class="form-group">
+                <div class="form-group student-only">
                     <label for="program">Academic Program</label>
                     <input type="text" name="program" id="program" required placeholder="BSc in CSE">
+                </div>
+                <div class="form-group instructor-only" style="display: none;">
+                    <label for="department">Department</label>
+                    <input type="text" name="department" id="department" placeholder="e.g. Computer Science">
+                </div>
+                <div class="form-group instructor-only" style="display: none; grid-column: span 2;">
+                    <label for="bio">Biography / Research Areas</label>
+                    <input type="text" name="bio" id="bio" placeholder="Brief details about your academic background...">
                 </div>
                 <div class="form-group">
                     <label for="profile_pic">Profile Picture</label>
                     <input type="file" name="profile_pic" id="profile_pic" accept="image/*" style="padding: 8px;">
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="position: relative;">
                     <label for="password">Password</label>
-                    <input type="password" name="password" id="password" required placeholder="••••••••">
+                    <input type="password" name="password" id="password" required placeholder="••••••••" style="padding-right: 50px;">
+                    <span id="toggleRegPassword" style="position: absolute; right: 15px; top: 38px; cursor: pointer; color: var(--text-dim); font-size: 13px; font-weight: 600; user-select: none;">Show</span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="position: relative;">
                     <label for="confirm_password">Confirm Password</label>
-                    <input type="password" name="confirm_password" id="confirm_password" required placeholder="••••••••">
+                    <input type="password" name="confirm_password" id="confirm_password" required placeholder="••••••••" style="padding-right: 50px;">
+                    <span id="toggleRegConfirmPassword" style="position: absolute; right: 15px; top: 38px; cursor: pointer; color: var(--text-dim); font-size: 13px; font-weight: 600; user-select: none;">Show</span>
                 </div>
             </div>
 
@@ -232,6 +250,94 @@
         </div>
     </div>
 </div>
+
+<script>
+function toggleRoleFields() {
+    var role = document.getElementById('role').value;
+    var studentFields = document.querySelectorAll('.student-only');
+    var instructorFields = document.querySelectorAll('.instructor-only');
+    
+    var studentIdInput = document.getElementById('student_id');
+    var programInput = document.getElementById('program');
+    var departmentInput = document.getElementById('department');
+
+    if (role === 'student') {
+        studentFields.forEach(el => el.style.display = 'block');
+        instructorFields.forEach(el => el.style.display = 'none');
+        
+        studentIdInput.setAttribute('required', 'required');
+        programInput.setAttribute('required', 'required');
+        departmentInput.removeAttribute('required');
+    } else {
+        studentFields.forEach(el => el.style.display = 'none');
+        instructorFields.forEach(el => el.style.display = 'block');
+        
+        studentIdInput.removeAttribute('required');
+        programInput.removeAttribute('required');
+        departmentInput.setAttribute('required', 'required');
+    }
+}
+
+// Password toggle features
+document.getElementById('toggleRegPassword').addEventListener('click', function() {
+    const password = document.getElementById('password');
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    this.textContent = type === 'password' ? 'Show' : 'Hide';
+});
+
+document.getElementById('toggleRegConfirmPassword').addEventListener('click', function() {
+    const confirm = document.getElementById('confirm_password');
+    const type = confirm.getAttribute('type') === 'password' ? 'text' : 'password';
+    confirm.setAttribute('type', type);
+    this.textContent = type === 'password' ? 'Show' : 'Hide';
+});
+
+// Live AJAX Email Availability Checker
+document.getElementById('email').addEventListener('blur', function() {
+    const email = this.value.trim();
+    const feedback = document.getElementById('email-feedback');
+    const submitBtn = document.querySelector('.btn-register');
+    
+    if (email === '') {
+        feedback.style.display = 'none';
+        return;
+    }
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        feedback.style.display = 'block';
+        feedback.style.color = 'var(--error)';
+        feedback.textContent = 'Invalid email format';
+        return;
+    }
+    
+    fetch('../../api/check_email.php?email=' + encodeURIComponent(email))
+        .then(response => response.json())
+        .then(data => {
+            feedback.style.display = 'block';
+            if (data.exists) {
+                feedback.style.color = 'var(--error)';
+                feedback.innerHTML = '⚠️ Email already registered. <a href="login.php" style="color: var(--accent); text-decoration: underline;">Login here</a>';
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.5';
+                submitBtn.style.cursor = 'not-allowed';
+            } else {
+                feedback.style.color = 'var(--success)';
+                feedback.textContent = '✓ Email is available!';
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+                submitBtn.style.cursor = 'pointer';
+            }
+        })
+        .catch(error => {
+            console.error('Error checking email:', error);
+        });
+});
+
+// Run on load
+document.addEventListener('DOMContentLoaded', toggleRoleFields);
+</script>
 
 </body>
 </html>
