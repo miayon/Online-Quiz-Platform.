@@ -43,6 +43,7 @@ class UserModel {
         $stats['total_students'] = db_fetch_one("SELECT COUNT(*) as count FROM users WHERE role = 'student'")['count'];
         $stats['total_instructors'] = db_fetch_one("SELECT COUNT(*) as count FROM users WHERE role = 'instructor'")['count'];
         $stats['total_tas'] = db_fetch_one("SELECT COUNT(*) as count FROM users WHERE role = 'ta'")['count'];
+        $stats['total_admins'] = db_fetch_one("SELECT COUNT(*) as count FROM users WHERE role = 'admin'")['count'];
         $stats['pending_instructors'] = db_fetch_one("SELECT COUNT(*) as count FROM users WHERE role = 'instructor' AND is_active = 0")['count'];
         $stats['pending_integrity_flags'] = db_fetch_one("SELECT COUNT(*) as count FROM integrity_reports WHERE status = 'pending'")['count'];
         return $stats;

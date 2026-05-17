@@ -71,5 +71,31 @@ class ReportModel {
                 ORDER BY a.started_at DESC";
         return db_fetch_all($sql, [$student_id, $student_id]);
     }
+
+    public static function getPeakUsageTimes() {
+        $sql = "SELECT HOUR(started_at) as hour, COUNT(*) as attempt_count 
+                FROM attempts 
+                GROUP BY HOUR(started_at) 
+                ORDER BY attempt_count DESC";
+        return db_fetch_all($sql);
+    }
+
+    public static function getRangeSummary($startDate, $endDate) {
+        $stats = [];
+        
+        $u_res = db_fetch_one("SELECT COUNT(*) as count FROM users WHERE created_at BETWEEN ? AND ?", [$startDate, $endDate], "ss");
+        $stats['users_created'] = $u_res ? $u_res['count'] : 0;
+        
+        $c_res = db_fetch_one("SELECT COUNT(*) as count FROM courses WHERE created_at BETWEEN ? AND ?", [$startDate, $endDate], "ss");
+        $stats['courses_created'] = $c_res ? $c_res['count'] : 0;
+        
+        $q_res = db_fetch_one("SELECT COUNT(*) as count FROM quizzes WHERE available_from BETWEEN ? AND ?", [$startDate, $endDate], "ss");
+        $stats['quizzes_created'] = $q_res ? $q_res['count'] : 0;
+        
+        $a_res = db_fetch_one("SELECT COUNT(*) as count FROM attempts WHERE started_at BETWEEN ? AND ?", [$startDate, $endDate], "ss");
+        $stats['attempts_created'] = $a_res ? $a_res['count'] : 0;
+        
+        return $stats;
+    }
 }
 ?>

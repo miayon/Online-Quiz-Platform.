@@ -18,11 +18,14 @@ class RegisterController {
 
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
+            $role = trim($_POST["role"] ?? "student");
             $name = trim($_POST["name"] ?? "");
             $email = trim($_POST["email"] ?? "");
             $phone = trim($_POST["phone"] ?? "");
             $student_id = trim($_POST["student_id"] ?? "");
             $program = trim($_POST["program"] ?? "");
+            $department = trim($_POST["department"] ?? "");
+            $bio = trim($_POST["bio"] ?? "");
             $password = $_POST["password"] ?? "";
             $confirm_password = $_POST["confirm_password"] ?? "";
 
@@ -32,17 +35,19 @@ class RegisterController {
                 $error = "Name is required.";
             } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $error = "Valid email is required.";
-            } elseif ($student_id === "") {
+            } elseif ($role === "student" && $student_id === "") {
                 $error = "Student ID is required.";
-            } elseif ($program === "") {
+            } elseif ($role === "student" && $program === "") {
                 $error = "Program is required.";
+            } elseif ($role === "instructor" && $department === "") {
+                $error = "Department is required.";
             } elseif (strlen($password) < 6) {
                 $error = "Password must be at least 6 characters.";
             } elseif ($password !== $confirm_password) {
                 $error = "Passwords do not match.";
             } elseif ($this->registerModel->emailExists($email)) {
                 $error = "Email already exists.";
-            } elseif ($this->registerModel->studentIdExists($student_id)) {
+            } elseif ($role === "student" && $this->registerModel->studentIdExists($student_id)) {
                 $error = "Student ID already exists.";
             } else {
 
@@ -60,12 +65,12 @@ class RegisterController {
                         $error = "Only JPG, PNG and GIF images are allowed.";
                     } else {
 
-                        if (!is_dir(__DIR__ . "/../../public/uploads")) {
-                            mkdir(__DIR__ . "/../../public/uploads", 0777, true);
+                        if (!is_dir(__DIR__ . "/../assets/uploads")) {
+                            mkdir(__DIR__ . "/../assets/uploads", 0777, true);
                         }
 
                         $profile_pic =
-                            "student_" .
+                            $role . "_" .
                             time() .
                             "_" .
                             rand(1000, 9999) .
@@ -74,7 +79,7 @@ class RegisterController {
 
                         $target =
                             __DIR__ .
-                            "/../../public/uploads/" .
+                            "/../assets/uploads/" .
                             $profile_pic;
 
                         move_uploaded_file(
@@ -92,24 +97,40 @@ class RegisterController {
                             PASSWORD_DEFAULT
                         );
 
-                    $created =
-                        $this->registerModel
-                            ->createStudent(
-                                $name,
-                                $email,
-                                $password_hash,
-                                $phone,
-                                $student_id,
-                                $program,
-                                $profile_pic
-                            );
+                    if ($role === "student") {
+                        $created =
+                            $this->registerModel
+                                ->createStudent(
+                                    $name,
+                                    $email,
+                                    $password_hash,
+                                    $phone,
+                                    $student_id,
+                                    $program,
+                                    $profile_pic
+                                );
+                    } else {
+                        $created =
+                            $this->registerModel
+                                ->createInstructor(
+                                    $name,
+                                    $email,
+                                    $password_hash,
+                                    $phone,
+                                    $department,
+                                    $bio,
+                                    $profile_pic
+                                );
+                    }
 
                     if ($created) {
-                        $success =
-                            "Registration successful. You can login now.";
+                        if ($role === "student") {
+                            $success = "Registration successful. You can login now.";
+                        } else {
+                            $success = "Registration successful! Your instructor request is pending administrative approval.";
+                        }
                     } else {
-                        $error =
-                            "Registration failed. Please try again.";
+                        $error = "Registration failed. Please try again.";
                     }
                 }
             }

@@ -16,9 +16,38 @@ if (isset($_GET['action'])) {
         if ($user) {
             $newStatus = $user['is_active'] == 1 ? 0 : 1;
             UserModel::updateStatus($id, $newStatus);
+            $actionLabel = $newStatus == 1 ? "Activated User Account" : "Deactivated User Account";
+            log_action($actionLabel, "User: " . $user['email']);
         }
+    } elseif ($action === 'change_role') {
+        $role = isset($_GET['role']) ? trim($_GET['role']) : '';
+        $user = UserModel::getById($id);
+        if ($user && !empty($role)) {
+            UserModel::changeRole($id, $role);
+            log_action("Changed User Role", "User: " . $user['email'] . " to " . strtoupper($role));
+        }
+    } elseif ($action === 'approve_instructor') {
+        $user = UserModel::getById($id);
+        if ($user) {
+            UserModel::updateStatus($id, 1);
+            log_action("Approved Instructor", "Instructor: " . $user['email']);
+        }
+        header("Location: ../views/dashboard.php?msg=instructor_approved");
+        exit();
+    } elseif ($action === 'reject_instructor') {
+        $user = UserModel::getById($id);
+        if ($user) {
+            UserModel::delete($id);
+            log_action("Rejected Instructor", "Instructor: " . $user['email']);
+        }
+        header("Location: ../views/dashboard.php?msg=instructor_rejected");
+        exit();
     } elseif ($action === 'delete') {
-        UserModel::delete($id);
+        $user = UserModel::getById($id);
+        if ($user) {
+            UserModel::delete($id);
+            log_action("Deleted User", "User: " . $user['email']);
+        }
     }
 
     header("Location: ../views/manage_users.php");
