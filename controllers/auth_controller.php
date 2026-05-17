@@ -49,7 +49,7 @@ if (isset($_POST['action'])) {
     }
 }
 
-if (isset($_GET['action']) && $_GET['action'] === 'logout') {
+if ((isset($_GET['action']) && $_GET['action'] === 'logout') || (isset($_POST['action']) && $_POST['action'] === 'logout')) {
     session_unset();
     session_destroy();
     header("Location: ../login.php");
