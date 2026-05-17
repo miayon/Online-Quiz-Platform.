@@ -1,119 +1,76 @@
+<?php
+session_start();
+require_once __DIR__ . "/config/db.php";
+
+if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'ta') {
+    header("Location: views/ta_dashboard.php");
+    exit();
+}
+
+$error = "";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $email = trim($_POST["email"] ?? "");
+    $password = $_POST["password"] ?? "";
+
+    if ($email === "" || $password === "") {
+        $error = "Email and password are required.";
+    } else {
+        $user = db_fetch_one(
+            "SELECT id, name, email, password_hash, role, is_active FROM users WHERE email = ? LIMIT 1",
+            [$email],
+            "s"
+        );
+
+        if (!$user) {
+            $error = "User not found.";
+        } elseif (!password_verify($password, $user["password_hash"])) {
+            $error = "Wrong password.";
+        } elseif (intval($user["is_active"]) !== 1) {
+            $error = "Account is not active.";
+        } elseif ($user["role"] !== "ta") {
+            $error = "This page is only for Teaching Assistant login.";
+        } else {
+            $_SESSION["user_id"] = intval($user["id"]);
+            $_SESSION["name"] = $user["name"];
+            $_SESSION["email"] = $user["email"];
+            $_SESSION["role"] = $user["role"];
+            header("Location: views/ta_dashboard.php");
+            exit();
+        }
+    }
+}
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - QuizlyX</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <title>TA Login</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .login-container {
-            background-color: #ffffff;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 400px;
-        }
-        .login-container h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #666;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .btn-login {
-            width: 100%;
-            padding: 12px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-        .btn-login:hover {
-            background-color: #45a049;
-        }
-        .error-msg {
-            color: #f44336;
-            background-color: #ffebee;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 14px;
-        }
-        .info-box {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #e3f2fd;
-            border-left: 5px solid #2196f3;
-            font-size: 13px;
-            color: #0d47a1;
-        }
+        body{margin:0;min-height:100vh;display:grid;place-items:center;background:#f4f7fb;font-family:Segoe UI,Tahoma,sans-serif}
+        .card{width:min(430px,92%);background:white;padding:30px;border-radius:12px;box-shadow:0 10px 35px rgba(0,0,0,.08)}
+        h1{text-align:center;color:#2c3e50;margin-top:0}
+        p{text-align:center;color:#666}
+        label{display:block;font-weight:600;margin-bottom:7px}
+        input{width:100%;padding:11px;border:1px solid #ddd;border-radius:6px;box-sizing:border-box;margin-bottom:16px}
+        button{width:100%;padding:12px;background:#3498db;color:white;border:0;border-radius:6px;font-weight:bold;cursor:pointer}
+        .error{padding:12px;background:#ffebee;color:#c62828;border-radius:6px;margin-bottom:15px}
+        .demo{margin-top:18px;background:#eef7ff;padding:12px;border-radius:6px;font-size:14px}
     </style>
 </head>
 <body>
-
-<div class="login-container">
-    <h1 style="text-align: center; color: #2c3e50; margin-bottom: 5px; font-size: 32px;">QuizlyX</h1>
-    <p style="text-align: center; color: #7f8c8d; margin-bottom: 30px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Sign in to your account</p>
-
-    <?php if (isset($_GET['error'])): ?>
-        <div class="error-msg">
-            <?php
-                if ($_GET['error'] == 'empty_fields') echo "Please fill in all fields.";
-                elseif ($_GET['error'] == 'invalid_credentials') echo "Invalid email or password.";
-                elseif ($_GET['error'] == 'inactive_account') echo "Your account is not active yet.";
-                else echo "An error occurred. Please try again.";
-            ?>
-        </div>
-    <?php endif; ?>
-
-    <form action="controllers/auth_controller.php" method="POST">
-        <input type="hidden" name="action" value="login">
-        
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" required>
-        </div>
-
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" required>
-        </div>
-
-        <button type="submit" class="btn-login">Login</button>
+<div class="card">
+    <h1>Teaching Assistant Login</h1>
+    <p>Online Quiz Platform</p>
+    <?php if ($error): ?><div class="error"><?php echo htmlspecialchars($error); ?></div><?php endif; ?>
+    <form method="POST">
+        <label>Email</label>
+        <input type="email" name="email" value="ta@quiz.com" required>
+        <label>Password</label>
+        <input type="password" name="password" value="password" required>
+        <button type="submit">Login</button>
     </form>
-    
-    <div style="text-align: center; margin-top: 25px; font-size: 14px; color: #666;">
-        Don't have an account? <a href="register.php" style="color: #2563eb; text-decoration: none; font-weight: 600;">Register as Student</a>
-    </div>
-
+    <div class="demo"><b>Demo Login</b><br>Email: ta@quiz.com<br>Password: password</div>
 </div>
-
 </body>
 </html>
