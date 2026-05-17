@@ -10,8 +10,6 @@ CREATE TABLE users (
   profile_pic VARCHAR(255),
   student_id VARCHAR(50),
   program VARCHAR(100),
-  department VARCHAR(100),
-  bio TEXT,
   is_active TINYINT(1) DEFAULT 0,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

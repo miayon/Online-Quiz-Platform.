@@ -87,49 +87,5 @@ class RegisterModel {
 
         return $stmt->execute();
     }
-
-    public function createInstructor(
-        $name,
-        $email,
-        $password_hash,
-        $phone,
-        $department,
-        $bio,
-        $profile_pic
-    ) {
-        $role = "instructor";
-        $is_active = 0; // pending admin approval
-
-        $stmt = $this->conn->prepare("
-            INSERT INTO users
-            (
-                name,
-                email,
-                password_hash,
-                phone,
-                role,
-                profile_pic,
-                department,
-                bio,
-                is_active
-            )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ");
-
-        $stmt->bind_param(
-            "ssssssssi",
-            $name,
-            $email,
-            $password_hash,
-            $phone,
-            $role,
-            $profile_pic,
-            $department,
-            $bio,
-            $is_active
-        );
-
-        return $stmt->execute();
-    }
 }
 ?>
