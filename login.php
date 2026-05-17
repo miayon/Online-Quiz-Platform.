@@ -1,129 +1,107 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - QuizlyX</title>
+    <title>Academic Portal Gatekeeper</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            background: #f4f7fb;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .login-container {
-            background-color: #ffffff;
+        .gateway-card {
+            width: min(550px, 92%);
+            background: white;
             padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 400px;
-        }
-        .login-container h2 {
+            border-radius: 16px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.06);
             text-align: center;
-            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-top: 0;
+            font-size: 28px;
+        }
+        p.subtitle {
+            color: #6b7280;
             margin-bottom: 30px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #666;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .btn-login {
-            width: 100%;
-            padding: 12px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
             font-size: 16px;
-            transition: background-color 0.3s;
         }
-        .btn-login:hover {
-            background-color: #45a049;
+        .portal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
         }
-        .error-msg {
-            color: #f44336;
-            background-color: #ffebee;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            text-align: center;
+        .portal-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #2c3e50;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            font-weight: bold;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        .portal-btn:hover {
+            border-color: #3498db;
+            background: #f0f9ff;
+            transform: translateY(-2px);
+        }
+        .portal-btn.admin:hover {
+            border-color: #2ecc71;
+            background: #f0fdf4;
+        }
+        .portal-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+        .portal-btn span {
             font-size: 14px;
-        }
-        .info-box {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #e3f2fd;
-            border-left: 5px solid #2196f3;
-            font-size: 13px;
-            color: #0d47a1;
+            font-weight: normal;
+            color: #6b7280;
+            margin-top: 4px;
         }
     </style>
 </head>
 <body>
+<div class="gateway-card">
+    <h1>QuizlyX Institutional Portal</h1>
+    <p class="subtitle">Select your academic role below to access your isolated workspace:</p>
 
-<div class="login-container">
-    <h1 style="text-align: center; color: #2c3e50; margin-bottom: 5px; font-size: 32px;">QuizlyX</h1>
-    <p style="text-align: center; color: #7f8c8d; margin-bottom: 30px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Sign in to your account</p>
+    <div class="portal-grid">
+        <a href="views/student/login.php" class="portal-btn">
+            <div class="portal-icon">🧑‍🎓</div>
+            Student Portal
+            <span>Enrolment & Quizzes</span>
+        </a>
 
-    <?php if (isset($_GET['error'])): ?>
-        <div class="error-msg">
-            <?php
-                if ($_GET['error'] == 'empty_fields') echo "Please fill in all fields.";
-                elseif ($_GET['error'] == 'invalid_credentials') echo "Invalid email or password.";
-                elseif ($_GET['error'] == 'inactive_account') echo "Your account is not active yet.";
-                else echo "An error occurred. Please try again.";
-            ?>
-        </div>
-    <?php endif; ?>
+        <a href="views/instructor/login.php" class="portal-btn">
+            <div class="portal-icon">👨‍🏫</div>
+            Instructor Portal
+            <span>Course & Quiz Governance</span>
+        </a>
 
-    <form action="controllers/auth_controller.php" method="POST">
-        <input type="hidden" name="action" value="login">
-        
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" required>
-        </div>
+        <a href="views/ta/login.php" class="portal-btn">
+            <div class="portal-icon">🧑‍💻</div>
+            TA Portal
+            <span>Practice Quizzes & doubt sessions</span>
+        </a>
 
-        <div class="form-group" style="position: relative;">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" required style="padding-right: 50px;">
-            <span id="togglePassword" style="position: absolute; right: 15px; top: 38px; cursor: pointer; color: #666; font-size: 14px; font-weight: 600; user-select: none;">Show</span>
-        </div>
-
-        <button type="submit" class="btn-login">Login</button>
-    </form>
-    
-    <div style="text-align: center; margin-top: 25px; font-size: 14px; color: #666;">
-        Don't have an account? <a href="register.php" style="color: #2563eb; text-decoration: none; font-weight: 600;">Register here</a>
+        <a href="views/admin/login.php" class="portal-btn admin">
+            <div class="portal-icon">👑</div>
+            Admin Portal
+            <span>Institutional Settings</span>
+        </a>
     </div>
-
 </div>
-
-<script>
-document.getElementById('togglePassword').addEventListener('click', function() {
-    const password = document.getElementById('password');
-    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-    password.setAttribute('type', type);
-    this.textContent = type === 'password' ? 'Show' : 'Hide';
-});
-</script>
-
 </body>
 </html>
