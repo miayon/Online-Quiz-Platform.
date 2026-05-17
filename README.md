@@ -1,28 +1,6 @@
 # Online Quiz Platform - Student Role MVC
 
-## Structure
 
-```text
-web_project/
-├── app/
-│   ├── controllers/
-│   ├── models/
-│   └── views/
-├── config/
-│   └── db.php
-├── core/
-│   └── auth.php
-├── public/
-│   ├── index.php
-│   ├── login.php
-│   ├── register.php
-│   ├── assets/
-│   ├── uploads/
-│   ├── student/
-│   └── api/
-├── database/
-└── README.md
-```
 
 ## Run
 
@@ -50,5 +28,5 @@ Default user from your schema:
 
 ```text
 Email: rakib@gmail.com
-Password: password
+Password: 123456
 ```
