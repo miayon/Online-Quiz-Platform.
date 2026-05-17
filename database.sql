@@ -174,11 +174,30 @@ CREATE TABLE platform_settings (
   setting_value VARCHAR(255)
 );
 
+CREATE TABLE ta_student_flags (
+  id INT(11) AUTO_INCREMENT PRIMARY KEY,
+  course_id INT(11) NOT NULL,
+  student_id INT(11) NOT NULL,
+  attempt_id INT(11) NOT NULL,
+  ta_id INT(11) NOT NULL,
+  reason TEXT,
+  status VARCHAR(50) DEFAULT 'pending_review',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE ta_doubt_session_status (
+  doubt_session_id INT(11) PRIMARY KEY,
+  status VARCHAR(50) DEFAULT 'scheduled',
+  notice TEXT,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
 -- Insert Default Data
 INSERT INTO users (name, email, password_hash, role, is_active) VALUES 
 ('Rakib', 'rakib@gmail.com', '$2y$10$7Av5NTHkkCui/C1FBSGGi.u3XwQaqykfN.xKGd9Nv86/5lkI/SzpC', 'student', 1),
 ('Admin User', 'admin@quiz.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 1),
-('John Instructor', 'john@quiz.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'instructor', 1);
+('John Instructor', 'john@quiz.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'instructor', 1),
+('Teaching Assistant', 'ta@quiz.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'ta', 1);
 
 INSERT INTO subjects (name, description) VALUES 
 ('Computer Science', 'CSE related subjects'),
@@ -187,4 +206,6 @@ INSERT INTO subjects (name, description) VALUES
 INSERT INTO platform_settings (setting_key, setting_value) VALUES
 ('max_quiz_duration', '120'),
 ('max_students_default', '50'),
-('allow_instructor_registration', '1');
+('allow_instructor_registration', '1'),
+('ta_at_risk_threshold', '50');
+

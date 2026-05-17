@@ -18,20 +18,26 @@ if (isset($_POST['action'])) {
         $user = UserModel::authenticate($email, $password);
 
         if ($user) {
-            if ($user['is_active'] == 0 && $user['role'] !== 'admin') {
+            // Screen for active/inactive accounts (except Admins)
+            if (intval($user['is_active']) !== 1 && $user['role'] !== 'admin') {
                 header("Location: ../login.php?error=inactive_account");
                 exit();
             }
 
-            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_id'] = intval($user['id']);
             $_SESSION['name'] = $user['name'];
             $_SESSION['role'] = $user['role'];
+            $_SESSION['email'] = $user['email'];
 
             // Redirect based on role
             if ($user['role'] === 'admin') {
                 header("Location: ../views/dashboard.php");
-            } elseif ($user['role'] === 'student') {
+                        } elseif ($user['role'] === 'student') {
                 header("Location: ../views/student/dashboard.php");
+            } elseif ($user['role'] === 'ta') {
+                header("Location: ../views/ta_dashboard.php");
+            } elseif ($user['role'] === 'instructor') {
+                header("Location: ../views/instructor_dashboard.php");
             } else {
                 header("Location: ../index.php");
             }
@@ -43,7 +49,7 @@ if (isset($_POST['action'])) {
     }
 }
 
-if (isset($_GET['action']) && $_GET['action'] === 'logout') {
+if ((isset($_GET['action']) && $_GET['action'] === 'logout') || (isset($_POST['action']) && $_POST['action'] === 'logout')) {
     session_unset();
     session_destroy();
     header("Location: ../login.php");
