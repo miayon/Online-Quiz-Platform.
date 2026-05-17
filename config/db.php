@@ -17,11 +17,23 @@ function db_query($sql, $params = [], $types = "") {
     global $conn;
     $stmt = $conn->prepare($sql);
     if (!empty($params)) {
+        if ($types === "") {
+            foreach ($params as $param) {
+                if (is_int($param)) {
+                    $types .= "i";
+                } elseif (is_double($param)) {
+                    $types .= "d";
+                } else {
+                    $types .= "s";
+                }
+            }
+        }
         $stmt->bind_param($types, ...$params);
     }
     $stmt->execute();
     return $stmt;
 }
+
 
 function db_fetch_one($sql, $params = [], $types = "") {
     $stmt = db_query($sql, $params, $types);
