@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>QuizlyX - Student Panel</title>
-    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/student.css">
 </head>
 <body>
 
