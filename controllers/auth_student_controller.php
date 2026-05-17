@@ -1,13 +1,13 @@
 <?php
 
-require_once __DIR__ . "/../../config/db.php";
-require_once __DIR__ . "/../models/User.php";
+require_once __DIR__ . "/../config/db.php";
+require_once __DIR__ . "/../models/UserStudentModel.php";
 
 class AuthController {
     private $userModel;
 
     public function __construct($db) {
-        $this->userModel = new User($db);
+        $this->userModel = new UserStudentModel($db);
     }
 
     public function login() {

@@ -1,8 +1,8 @@
 <?php
 
-require_once __DIR__ . "/../../config/db.php";
+require_once __DIR__ . "/../config/db.php";
 
-require_once __DIR__ . "/../models/Profile.php";
+require_once __DIR__ . "/../models/ProfileModel.php";
 
 class ProfileController {
 
@@ -11,7 +11,7 @@ class ProfileController {
     public function __construct($db) {
 
         $this->profileModel =
-            new Profile($db);
+            new ProfileModel($db);
     }
 
     public function profile($student_id) {

@@ -2,7 +2,7 @@
 // models/ReportModel.php
 require_once __DIR__ . '/../config/db.php';
 
-class ReportModel {
+class ReportStudentModelModel {
     public static function getEnrollmentPerSubject() {
         $sql = "SELECT s.name as subject_name, COUNT(e.id) as enrollment_count
                 FROM subjects s

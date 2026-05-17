@@ -1,6 +1,6 @@
 <?php
 
-class User {
+class UserStudentModel {
     private $conn;
 
     public function __construct($db) {

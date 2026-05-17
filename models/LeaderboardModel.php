@@ -1,6 +1,6 @@
 <?php
 
-class Leaderboard {
+class LeaderboardModel {
 
     private $conn;
 

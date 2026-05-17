@@ -1,6 +1,6 @@
 <?php
 
-class Register {
+class RegisterModel {
 
     private $conn;
 

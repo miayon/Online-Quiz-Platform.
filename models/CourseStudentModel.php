@@ -1,6 +1,6 @@
 <?php
 
-class Course {
+class CourseStudentModel {
 
     private $conn;
 

@@ -1,6 +1,6 @@
 <?php
 
-class DoubtSession {
+class DoubtSessionModel {
 
     private $conn;
 

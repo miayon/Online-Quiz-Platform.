@@ -1,10 +1,10 @@
 <?php
 
 require_once __DIR__ .
-"/../../config/db.php";
+"/../config/db.php";
 
 require_once __DIR__ .
-"/../models/Performance.php";
+"/../models/PerformanceModel.php";
 
 class PerformanceController {
 
@@ -13,7 +13,7 @@ class PerformanceController {
     public function __construct($db) {
 
         $this->performanceModel =
-            new Performance($db);
+            new PerformanceModel($db);
     }
 
     public function dashboard(
