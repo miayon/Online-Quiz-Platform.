@@ -101,9 +101,10 @@
             <input type="email" name="email" id="email" required>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style="position: relative;">
             <label for="password">Password</label>
-            <input type="password" name="password" id="password" required>
+            <input type="password" name="password" id="password" required style="padding-right: 50px;">
+            <span id="togglePassword" style="position: absolute; right: 15px; top: 38px; cursor: pointer; color: #666; font-size: 14px; font-weight: 600; user-select: none;">Show</span>
         </div>
 
         <button type="submit" class="btn-login">Login</button>
@@ -114,6 +115,15 @@
     </div>
 
 </div>
+
+<script>
+document.getElementById('togglePassword').addEventListener('click', function() {
+    const password = document.getElementById('password');
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    this.textContent = type === 'password' ? 'Show' : 'Hide';
+});
+</script>
 
 </body>
 </html>
